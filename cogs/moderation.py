@@ -4,33 +4,22 @@ import random
 from itertools import cycle
 
 class Moderation(commands.Cog):
-    def __init__(self,bot):
-        self.bot = bot
+    def __init__(self,client):
+        self.client = client
 
     @commands.Cog.listener()
     async def on_ready(self):
         print("Moderation.py is ready!")
 
-    @commands.command()
+    @commands.command(help = "Clears a number of previous messages specified by you.")
     @commands.has_permissions(manage_messages=True)
     async def clear(self,ctx,count: int):
         await ctx.channel.purge(limit=count)
         await ctx.send(f"{count} messages have been purged.")
 
-    commands.command()
-    commands.has_permissions(kick_members=True)
-    async def kick(self,ctx,member:discord.Member, modreason):
-        await ctx.guild.kick(member)
-
-        conf_embed=discord.Embed(title="Success!", color=discord.Color.green())
-        conf_embed.add_field(name="Kicked:",value=f"{member.mention} has been kicked from the server by {ctx.author.mention}.",inline =False)
-        conf_embed.add_field(name="Reason:", value=modreason, inline=False)
-
-        await ctx.send(embed=conf_embed)
-
-    commands.command()
+    commands.command(help = "bans member of your choosing")
     commands.has_permissions(ban_members=True)
-    async def ban(self,ctx,member:discord.Member, modreason):
+    async def ban(self, ctx, member: discord.Member, modreason):
         await ctx.guild.ban(member)
 
         conf_embed=discord.Embed(title="Success!", color=discord.Color.green())
@@ -39,7 +28,7 @@ class Moderation(commands.Cog):
 
         await ctx.send(embed=conf_embed)
 
-    @commands.command(name="unban")
+    @commands.command(help="unbans member")
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     async def unban(self,ctx,userId):
@@ -51,5 +40,5 @@ class Moderation(commands.Cog):
 
         await ctx.send(embed=conf_embed)
 
-async def setup(bot):
-    await bot.add_cog(Moderation(bot))
+async def setup(client):
+    await client.add_cog(Moderation(client))

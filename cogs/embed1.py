@@ -6,14 +6,14 @@ import os
 from itertools import cycle
 
 class Embed(commands.Cog):
-    def __init__(self,bot):
-        self.bot = bot
+    def __init__(self,client):
+        self.client = client
 
     @commands.Cog.listener()
     async def on_ready(self):
         print("Embed1.py is ready!")
 
-    @commands.command()
+    @commands.command(help = "creates an embedded message")
     async def embed(self,ctx):
         embed_message = discord.Embed(title="Title of embed", description="Description of embed", color=discord.Color.green())
 
@@ -25,5 +25,5 @@ class Embed(commands.Cog):
 
         await ctx.send(embed = embed_message)
 
-async def setup(bot):
-    await bot.add_cog(Embed(bot))
+async def setup(client):
+    await client.add_cog(Embed(client))

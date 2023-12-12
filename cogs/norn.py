@@ -4,8 +4,8 @@ import random
 from itertools import cycle
 
 class Norn(commands.Cog):
-    def __init__(self,bot):
-        self.bot = bot
+    def __init__(self,client):
+        self.client = client
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -19,5 +19,5 @@ class Norn(commands.Cog):
         else:
             norn_ans = random.choice(naughty_nice)
         await ctx.send(question + norn_ans)
-async def setup(bot):
-    await bot.add_cog(Norn(bot))
+async def setup(client):
+    await client.add_cog(Norn(client))
