@@ -12,9 +12,9 @@ class Kick(commands.Cog):
         print("Kick.py is ready!")
 
     
-    @commands.command("kicks a member specified by you")
+    @commands.command(help = "kicks a member specified by you")
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *, modreason):
+    async def kick(self, ctx, member: discord.Member, *, reason = None):
         if modreason is None:
             modreason = "No reason provided"
         try:
@@ -29,6 +29,13 @@ class Kick(commands.Cog):
             await ctx.send("I do not have permission to kick this member.")
         except Exception as e:
             await ctx.send(f"An error occurred: {e}")
+
+    @kick.error
+    async def kick_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Who are we kicking?? let me at em!! !kick <name> <reason>")
+
+
 
 async def setup(client):
     await client.add_cog(Kick(client))
