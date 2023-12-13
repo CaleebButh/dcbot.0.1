@@ -18,7 +18,6 @@ async def on_ready():
     print("success: Bot is connected to Discord")
     change_status.start()
 
-
 #@client.command(help= "Returns the bots latency.")
 #async def ping(ctx):
  #   bot_latency = round(client.latency * 1000)
@@ -37,11 +36,10 @@ async def load():
             await client.load_extension(f"cogs.{filename[:-3]}")
             print(f"{filename[:-3]} is loaded")
 
-
 async def main():
     async with client:
         await load()
-        await client.start("MTE3NDkzMzUzMDA0MDU5ODYyOQ.GDVcRK.h-loYnkb7mK8NqItPF0X8HlMEoohhEqMolBE8Q")
+        await client.start("")
 
 asyncio.run(main())
 
