@@ -24,5 +24,10 @@ class Eightball(commands.Cog):
             await ctx.send("Could not find the responses file.")
         except Exception as e:
             await ctx.send(f"An error occurred: {e}")
+
+    @magic_eightball.error
+    async def eightball_error(self,ctx,error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Ask a question please.")
 async def setup(client):
     await client.add_cog(Eightball(client))

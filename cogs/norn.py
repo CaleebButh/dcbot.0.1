@@ -19,5 +19,11 @@ class Norn(commands.Cog):
         else:
             norn_ans = random.choice(naughty_nice)
         await ctx.send(question + norn_ans)
+
+    @norn.error
+    async def norn_error(self,ctx,error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Add a name please.")
+            
 async def setup(client):
     await client.add_cog(Norn(client))
