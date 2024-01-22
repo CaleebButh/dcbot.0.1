@@ -22,6 +22,10 @@ async def on_ready():
 #async def ping(ctx):
  #   bot_latency = round(client.latency * 1000)
   #  await ctx.send(f"Pong! {bot_latency} ms.")
+    
+@client.command()
+async def HEY(ctx):
+    print("HO!")
 
 
 @client.command(help ="Shows a list of available commands.")
